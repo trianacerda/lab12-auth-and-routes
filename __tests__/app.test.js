@@ -64,10 +64,8 @@ describe('app routes', () => {
 
       const newTodo = 
         {
-          id: 4,
           todo: 'look pretty',
           completed: false,
-          user_id: 2
         }
       ;
 
@@ -78,7 +76,8 @@ describe('app routes', () => {
         .expect('Content-Type', /json/)
         .expect(200);
 
-      expect(data.body).toEqual(newTodo);
+      expect(data.body.todo).toEqual(newTodo.todo);
+      expect(data.body.completed).toEqual(newTodo.completed);
     });
   });
 });
