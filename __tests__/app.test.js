@@ -52,11 +52,33 @@ describe('app routes', () => {
       ];
 
       const data = await fakeRequest(app)
-        .get('/todos')
+        .get('/api/todos')
+        .set('Authorization', token)
         .expect('Content-Type', /json/)
         .expect(200);
 
       expect(data.body).toEqual(expectation);
+    });
+
+    test('POST/ creates a new todo task to the list', async() => {
+
+      const newTodo = 
+        {
+          id: 4,
+          todo: 'look pretty',
+          completed: false,
+          user_id: 2
+        }
+      ;
+
+      const data = await fakeRequest(app)
+        .post('/api/todos')
+        .send(newTodo)
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(newTodo);
     });
   });
 });
