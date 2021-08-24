@@ -79,5 +79,26 @@ describe('app routes', () => {
       expect(data.body.todo).toEqual(newTodo.todo);
       expect(data.body.completed).toEqual(newTodo.completed);
     });
+
+    test('PUT/ updates todos/:id list task', async() => {
+
+      const updatedTodo = 
+        {
+          id: 4,
+          todo: 'look pretty',
+          completed: true,
+          user_id: 2
+        }
+      ;
+
+      const data = await fakeRequest(app)
+        .put('/api/todos/4')
+        .send(updatedTodo)
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+      
+      expect(data.body.completed).toEqual(updatedTodo.completed);
+    });
   });
 });
