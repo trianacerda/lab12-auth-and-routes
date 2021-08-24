@@ -6,6 +6,7 @@ const { getEmoji } = require('../lib/emoji.js');
 
 run();
 
+
 async function run() {
 
   try {
