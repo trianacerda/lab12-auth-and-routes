@@ -28,38 +28,6 @@ describe('app routes', () => {
       return client.end(done);
     });
 
-    test('GET/ returns todos list', async() => {
-
-      const expectation = [
-        {
-          id: 1,
-          todo: 'feed the animals',
-          completed: false,
-          user_id: 1
-        },
-        {
-          id: 2,
-          todo: 'take out the trash',
-          completed: false,
-          user_id: 1
-        },
-        {
-          id: 3,
-          todo: 'clean the litter box',
-          completed: false,
-          user_id: 1
-        }
-      ];
-
-      const data = await fakeRequest(app)
-        .get('/api/todos')
-        .set('Authorization', token)
-        .expect('Content-Type', /json/)
-        .expect(200);
-
-      expect(data.body).toEqual(expectation);
-    });
-
     test('POST/ creates a new todo task to the list', async() => {
 
       const newTodo = 
@@ -79,6 +47,27 @@ describe('app routes', () => {
       expect(data.body.todo).toEqual(newTodo.todo);
       expect(data.body.completed).toEqual(newTodo.completed);
     });
+
+    test('GET/ returns todos list by id', async() => {
+
+      const expectation = [
+        {
+          id: 4,
+          todo: 'look pretty',
+          completed: false,
+          user_id: 2
+        }
+      ];
+
+      const data = await fakeRequest(app)
+        .get('/api/todos')
+        .set('Authorization', token)
+        .expect('Content-Type', /json/)
+        .expect(200);
+
+      expect(data.body).toEqual(expectation);
+    });
+
 
     test('PUT/ updates todos/:id list task', async() => {
 
